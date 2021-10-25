@@ -1,0 +1,8 @@
+package com.facundojaton.marvelcomicschallenge.model
+
+import java.io.Serializable
+
+data class SeriesSummary(
+    val resourceURI: String?,
+    val name: String?
+) : Serializable
