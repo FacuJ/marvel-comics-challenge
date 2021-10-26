@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CharactersFragment : Fragment() {
 
     private lateinit var binding: FragmentCharactersBinding
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: CharactersViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +26,15 @@ class CharactersFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCharactersBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.characterList.observe(viewLifecycleOwner, { list ->
+            list?.let {
+                it.size
+            }
+        })
     }
 
     companion object {
