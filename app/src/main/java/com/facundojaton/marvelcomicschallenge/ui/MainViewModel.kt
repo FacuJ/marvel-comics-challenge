@@ -2,8 +2,13 @@ package com.facundojaton.marvelcomicschallenge.ui
 
 import androidx.lifecycle.ViewModel
 import com.facundojaton.marvelcomicschallenge.repositories.MarvelRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel(private val repository: MarvelRepository) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor (
+    private val repository: MarvelRepository
+    ) : ViewModel() {
 
     /*private val _spinner = MutableStateFlow(true)
     val spinner: StateFlow<Boolean> get() = _spinner

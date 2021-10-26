@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.FragmentHomeBinding
@@ -12,13 +11,14 @@ import com.facundojaton.marvelcomicschallenge.ui.adapters.ViewPagerAdapter
 import com.facundojaton.marvelcomicschallenge.ui.characters_list.CharactersFragment
 import com.facundojaton.marvelcomicschallenge.ui.events_list.EventsFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     companion object {
         val TAG = HomeFragment::class.java.simpleName
     }
-
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -33,9 +33,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fragmentList = arrayListOf<Fragment>(
-            CharactersFragment(), EventsFragment()
-        )
+        val fragmentList = arrayListOf(CharactersFragment(), EventsFragment())
 
         val adapter = ViewPagerAdapter(
             fragmentList,
