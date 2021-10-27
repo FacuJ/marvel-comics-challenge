@@ -99,25 +99,6 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
         isScrolling = true
     }
 
-   /* fun seeCharacterDetail(character: Character) = viewModelScope.launch {
-        try {
-            _status.value = RequestStatus.LOADING
-            withContext(Dispatchers.IO) {
-                val response = repository.getCharacterById(character.id!!)
-            }
-            _status.value = RequestStatus.SUCCESS
-            *//*val characterDetail = CharacterDetail(character, episodes)
-            _selectedCharacter.value = characterDetail*//*
-        } catch (e: Exception) {
-            _status.value = RequestStatus.ERROR
-            Log.e(CharactersViewModel::class.java.simpleName, e.message.toString())
-        }
-    }*/
-
-    fun navigateToDetailsFinished() {
-        //_selectedCharacter.value = null
-    }
-
     fun refresh() {
         queryParams.clear()
         resetPages()

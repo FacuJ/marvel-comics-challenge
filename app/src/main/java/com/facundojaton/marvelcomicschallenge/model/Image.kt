@@ -7,5 +7,8 @@ data class Image(
     val extension: String?
 ) : Serializable {
 
-    fun getFullPath(): String = "$path.$extension"
+    fun getFullPath(): String {
+        val newUrl = path?.replace("http:","https:")
+        return "$newUrl.$extension"
+    }
 }

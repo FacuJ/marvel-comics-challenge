@@ -43,8 +43,6 @@ class HomeFragment : Fragment() {
 
         binding.vpHome.adapter = adapter
 
-        binding.tabLayout
-
         TabLayoutMediator(binding.tabLayout, binding.vpHome) { tab, position ->
             if (position == 0) tab.setCustomView(R.layout.custom_tab_view_item)
             else tab.setCustomView(R.layout.custom_tab_view_item_calendar)
