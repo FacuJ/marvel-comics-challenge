@@ -8,9 +8,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.FragmentCharactersBinding
+import com.facundojaton.marvelcomicschallenge.model.Character
 import com.facundojaton.marvelcomicschallenge.ui.adapters.CharactersListAdapter
+import com.facundojaton.marvelcomicschallenge.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,13 +37,21 @@ class CharactersFragment : Fragment() {
         binding.rvCharacters.adapter = listAdapter
         //rvCharacters.addOnScrollListener(customScrollListener)
         listAdapter.onCharacterClicked = {
-           // this@CharactersFragment.viewModel.selectCharacter(it)
+            navigateToCharacterDetail(it)
         }
         /*btnRefresh.setOnClickListener {
             thisViewModel.refresh()
         }*/
 
         return binding.root
+    }
+
+    private fun navigateToCharacterDetail(character: Character) {
+        this.findNavController().navigate(
+            HomeFragmentDirections.actionCharactersFragmentToCharacterDetailActivity(
+                character
+            )
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
