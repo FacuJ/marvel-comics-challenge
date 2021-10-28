@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.FragmentCharactersBinding
-import com.facundojaton.marvelcomicschallenge.model.Character
+import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.ui.adapters.CharactersListAdapter
 import com.facundojaton.marvelcomicschallenge.ui.home.HomeFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,7 +63,7 @@ class CharactersFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner, { status ->
             when (status) {
-                CharactersViewModel.RequestStatus.ERROR -> {
+                RequestStatus.ERROR -> {
                     listAdapter.waiting = false
                     Toast.makeText(
                         context?.applicationContext,
@@ -71,7 +71,7 @@ class CharactersFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                CharactersViewModel.RequestStatus.LOADING -> {
+                RequestStatus.LOADING -> {
                     listAdapter.waiting = true
                 }
                 else -> {
