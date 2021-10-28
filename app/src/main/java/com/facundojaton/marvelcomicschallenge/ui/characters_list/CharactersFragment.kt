@@ -33,7 +33,6 @@ class CharactersFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-
         binding.rvCharacters.adapter = listAdapter
         //rvCharacters.addOnScrollListener(customScrollListener)
         listAdapter.onCharacterClicked = {
