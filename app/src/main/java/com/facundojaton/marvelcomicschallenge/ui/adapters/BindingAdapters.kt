@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.model.Character
+import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
+import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.ui.characters_list.CharactersViewModel
 
 @BindingAdapter("charactersList")
@@ -20,17 +22,26 @@ fun bindCharactersRecyclerView(
     adapter.submitList(data)
 }
 
+@BindingAdapter("marvelEventsList")
+fun bindEventsRecyclerView(
+    eventsRecyclerView: RecyclerView,
+    data: ArrayList<MarvelEvent>?
+) {
+    val adapter = eventsRecyclerView.adapter as EventsListAdapter
+    adapter.submitList(data)
+}
+
 
 @BindingAdapter("marvelApiStatus")
-fun bindStatus(progressBar: ProgressBar, status: CharactersViewModel.RequestStatus?) {
+fun bindStatus(progressBar: ProgressBar, status: RequestStatus?) {
     when (status) {
-        CharactersViewModel.RequestStatus.LOADING -> {
+        RequestStatus.LOADING -> {
             progressBar.visibility = View.VISIBLE
         }
-        CharactersViewModel.RequestStatus.ERROR -> {
+        RequestStatus.ERROR -> {
             progressBar.visibility = View.GONE
         }
-        CharactersViewModel.RequestStatus.SUCCESS -> {
+        RequestStatus.SUCCESS -> {
             progressBar.visibility = View.GONE
         }
     }

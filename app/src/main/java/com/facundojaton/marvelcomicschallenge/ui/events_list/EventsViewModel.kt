@@ -1,4 +1,4 @@
-package com.facundojaton.marvelcomicschallenge.ui.characters_list
+package com.facundojaton.marvelcomicschallenge.ui.events_list
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.facundojaton.marvelcomicschallenge.model.Character
+import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.repositories.MarvelRepository
 import com.facundojaton.marvelcomicschallenge.utils.APIConstants
@@ -16,12 +17,12 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class CharactersViewModel @Inject constructor(private val repository: MarvelRepository) :
+class EventsViewModel @Inject constructor(private val repository: MarvelRepository) :
     ViewModel() {
 
-    private val _characterList = MutableLiveData<ArrayList<Character>>()
-    val characterList: LiveData<ArrayList<Character>>
-        get() = _characterList
+    private val _eventsList = MutableLiveData<ArrayList<MarvelEvent>>()
+    val eventsList: LiveData<ArrayList<MarvelEvent>>
+        get() = _eventsList
 
     private val _status = MutableLiveData<RequestStatus>()
     val status: LiveData<RequestStatus>
@@ -40,30 +41,30 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
         refresh()
     }
 
-    private fun getCharacterList() = viewModelScope.launch {
+    private fun getEventsList() = viewModelScope.launch {
         if (_status.value != RequestStatus.LOADING) {
             try {
                 _status.value = RequestStatus.LOADING
-                val characterList = ArrayList<Character>()
+                val eventList = ArrayList<MarvelEvent>()
                 withContext(Dispatchers.IO) {
-                    val response: List<Character> = repository.getCharacters()
-                    characterList.addAll(response)
+                    val response: List<MarvelEvent> = repository.getEvents()
+                    eventList.addAll(response)
                 }
 
-                val newList = ArrayList<Character>()
-                if (!_characterList.value.isNullOrEmpty()) newList.addAll(_characterList.value!!)
-                newList.addAll(characterList)
-                _characterList.value = newList
+                val newList = ArrayList<MarvelEvent>()
+                if (!_eventsList.value.isNullOrEmpty()) newList.addAll(_eventsList.value!!)
+                newList.addAll(eventList)
+                _eventsList.value = newList
                 _status.value = RequestStatus.SUCCESS
             } catch (e: Exception) {
                 _status.value = RequestStatus.ERROR
-                Log.e(CharactersViewModel::class.java.simpleName, e.message.toString())
+                Log.e(EventsViewModel::class.java.simpleName, e.message.toString())
             }
         }
     }
 
     private fun resetPages() {
-        _characterList.value = ArrayList()
+        _eventsList.value = ArrayList()
         page = 1
         queryParams[APIConstants.QueryParams.PAGE] = page.toString()
     }
@@ -78,16 +79,16 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
         val shouldPaginate = (status.value != RequestStatus.LOADING) && isAtLastItem &&
                 isNotAtBeginning && isScrolling && !isSearching
         if (shouldPaginate) {
-            getMoreCharacters()
+            getMoreEvents()
             isScrolling = false
         }
     }
 
 
-    private fun getMoreCharacters() {
+    private fun getMoreEvents() {
         page++
         queryParams[APIConstants.QueryParams.PAGE] = page.toString()
-        getCharacterList()
+        getEventsList()
     }
 
     fun onScrollStateTrue() {
@@ -97,7 +98,7 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
     fun refresh() {
         queryParams.clear()
         resetPages()
-        getCharacterList()
+        getEventsList()
     }
 
 }

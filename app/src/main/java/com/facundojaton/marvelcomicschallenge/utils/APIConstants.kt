@@ -5,6 +5,7 @@ object APIConstants {
 
     object Endpoints {
         const val CHARACTERS = "v1/public/characters"
+        const val EVENTS = "v1/public/events"
     }
 
     object QueryParams {
