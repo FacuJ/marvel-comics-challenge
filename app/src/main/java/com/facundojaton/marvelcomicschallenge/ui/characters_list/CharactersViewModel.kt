@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.facundojaton.marvelcomicschallenge.model.Character
+import com.facundojaton.marvelcomicschallenge.model.MarvelCharacter
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.repositories.MarvelRepository
 import com.facundojaton.marvelcomicschallenge.utils.APIConstants
@@ -19,8 +19,8 @@ import javax.inject.Inject
 class CharactersViewModel @Inject constructor(private val repository: MarvelRepository) :
     ViewModel() {
 
-    private val _characterList = MutableLiveData<ArrayList<Character>>()
-    val characterList: LiveData<ArrayList<Character>>
+    private val _characterList = MutableLiveData<ArrayList<MarvelCharacter>>()
+    val marvelCharacterList: LiveData<ArrayList<MarvelCharacter>>
         get() = _characterList
 
     private val _status = MutableLiveData<RequestStatus>()
@@ -44,13 +44,13 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
         if (_status.value != RequestStatus.LOADING) {
             try {
                 _status.value = RequestStatus.LOADING
-                val characterList = ArrayList<Character>()
+                val characterList = ArrayList<MarvelCharacter>()
                 withContext(Dispatchers.IO) {
-                    val response: List<Character> = repository.getCharacters()
+                    val response: List<MarvelCharacter> = repository.getCharacters()
                     characterList.addAll(response)
                 }
 
-                val newList = ArrayList<Character>()
+                val newList = ArrayList<MarvelCharacter>()
                 if (!_characterList.value.isNullOrEmpty()) newList.addAll(_characterList.value!!)
                 newList.addAll(characterList)
                 _characterList.value = newList

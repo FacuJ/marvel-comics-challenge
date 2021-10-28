@@ -8,9 +8,7 @@ import androidx.navigation.navArgs
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.ActivityCharacterDetailBinding
 import com.facundojaton.marvelcomicschallenge.databinding.LayoutComicsItemBinding
-import com.facundojaton.marvelcomicschallenge.model.ComicSummary
-import com.facundojaton.marvelcomicschallenge.ui.adapters.ComicsListAdapter
-import com.facundojaton.marvelcomicschallenge.ui.home.HomeFragmentDirections
+
 
 class CharacterDetailActivity : AppCompatActivity() {
 

@@ -8,15 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.facundojaton.marvelcomicschallenge.R
-import com.facundojaton.marvelcomicschallenge.model.Character
+import com.facundojaton.marvelcomicschallenge.model.MarvelCharacter
 import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
-import com.facundojaton.marvelcomicschallenge.ui.characters_list.CharactersViewModel
 
 @BindingAdapter("charactersList")
 fun bindCharactersRecyclerView(
     charactersRecyclerView: RecyclerView,
-    data: ArrayList<Character>?
+    data: ArrayList<MarvelCharacter>?
 ) {
     val adapter = charactersRecyclerView.adapter as CharactersListAdapter
     adapter.submitList(data)

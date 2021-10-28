@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.LayoutCharacterItemBinding
-import com.facundojaton.marvelcomicschallenge.model.Character
+import com.facundojaton.marvelcomicschallenge.model.MarvelCharacter
 
 class CharactersListAdapter : ListAdapter<
-        Character,
+        MarvelCharacter,
         CharactersListAdapter.CharacterViewHolder>(DiffCallback) {
 
-    var onCharacterClicked: (character: Character) -> Unit = { }
+    var onCharacterClicked: (marvelCharacter: MarvelCharacter) -> Unit = { }
     var waiting = false
 
     override fun onCreateViewHolder(
@@ -40,20 +40,20 @@ class CharactersListAdapter : ListAdapter<
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Character>() {
-        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<MarvelCharacter>() {
+        override fun areItemsTheSame(oldItem: MarvelCharacter, newItem: MarvelCharacter): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+        override fun areContentsTheSame(oldItem: MarvelCharacter, newItem: MarvelCharacter): Boolean {
             return oldItem.name == newItem.name
         }
     }
 
     class CharacterViewHolder(val binding: LayoutCharacterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(character: Character) {
-            binding.character = character
+        fun bind(marvelCharacter: MarvelCharacter) {
+            binding.character = marvelCharacter
             binding.executePendingBindings()
         }
     }

@@ -1,9 +1,6 @@
 package com.facundojaton.marvelcomicschallenge.db
 
-import com.facundojaton.marvelcomicschallenge.model.Character
 import com.facundojaton.marvelcomicschallenge.repositories.LocalDataSource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class RoomDataSource @Inject constructor(private val dao: MarvelDao) : LocalDataSource {

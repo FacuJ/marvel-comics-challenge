@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.facundojaton.marvelcomicschallenge.model.Character
 import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.repositories.MarvelRepository

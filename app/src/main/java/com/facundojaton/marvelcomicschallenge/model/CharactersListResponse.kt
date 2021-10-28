@@ -17,5 +17,5 @@ data class CharacterResponseData(
     val limit: Long?,
     val total: Long?,
     val count: Long?,
-    val results: ArrayList<Character>?
+    val results: ArrayList<MarvelCharacter>?
 ) : Serializable

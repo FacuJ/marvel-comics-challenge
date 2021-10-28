@@ -7,7 +7,7 @@
     <data>
         <variable
             name="character"
-            type="com.facundojaton.marvelcomicschallenge.model.Character" />
+            type="com.facundojaton.marvelcomicschallenge.model.MarvelCharacter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

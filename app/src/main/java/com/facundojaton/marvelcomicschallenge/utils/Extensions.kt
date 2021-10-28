@@ -1,8 +1,5 @@
 package com.facundojaton.marvelcomicschallenge.utils
 
-import com.facundojaton.marvelcomicschallenge.model.Character
-import com.facundojaton.marvelcomicschallenge.model.RoomCharacter
-
 /*
 fun RoomCharacter.toDomainCharacter(): Character =
     Character(

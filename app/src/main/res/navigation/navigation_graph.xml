@@ -27,6 +27,6 @@
         tools:layout="@layout/activity_character_detail" >
         <argument
             android:name="character"
-            app:argType="com.facundojaton.marvelcomicschallenge.model.Character" />
+            app:argType="com.facundojaton.marvelcomicschallenge.model.MarvelCharacter" />
     </activity>
 </navigation>

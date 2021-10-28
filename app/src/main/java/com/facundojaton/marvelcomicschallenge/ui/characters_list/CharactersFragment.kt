@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.FragmentCharactersBinding
+import com.facundojaton.marvelcomicschallenge.model.MarvelCharacter
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.ui.adapters.CharactersListAdapter
 import com.facundojaton.marvelcomicschallenge.ui.home.HomeFragmentDirections
@@ -45,17 +46,17 @@ class CharactersFragment : Fragment() {
         return binding.root
     }
 
-    private fun navigateToCharacterDetail(character: Character) {
+    private fun navigateToCharacterDetail(marvelCharacter: MarvelCharacter) {
         this.findNavController().navigate(
             HomeFragmentDirections.actionCharactersFragmentToCharacterDetailActivity(
-                character
+                marvelCharacter
             )
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.characterList.observe(viewLifecycleOwner, { list ->
+        viewModel.marvelCharacterList.observe(viewLifecycleOwner, { list ->
             list?.let {
                 it.size
             }
