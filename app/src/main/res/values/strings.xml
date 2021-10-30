@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">MarvelComicsChallenge</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="facebook_app_id" translatable="false">1999983010180918</string>
+    <string name="facebook_application_id" translatable="false">1999983010180918</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1999983010180918</string>
     <string name="characters">Characters</string>
     <string name="events">Events</string>
     <string name="refresh">refresh</string>
     <string name="error_fetching_characters">We couldn\'t get the characters successfully, please try again later</string>
     <string name="comics_appearances_title">Appears in these comics</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
