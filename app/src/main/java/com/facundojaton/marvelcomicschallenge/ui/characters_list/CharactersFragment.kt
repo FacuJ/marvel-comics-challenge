@@ -2,6 +2,7 @@ package com.facundojaton.marvelcomicschallenge.ui.characters_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -96,29 +97,6 @@ class CharactersFragment : Fragment() {
         this.findNavController().navigate(SeriesListFragmentDirections.actionShowDetail(detail))
     }
 */
-
-
-/*private val customScrollListener = object : RecyclerView.OnScrollListener() {
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recyclerView, dx, dy)
-        val layoutManager = recyclerView.layoutManager as GridLayoutManager
-        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-        val visibleItemCount = layoutManager.childCount
-        val totalItemCount = layoutManager.itemCount
-        seriesListViewModel.paginateIfNeeded(
-            firstVisibleItemPosition,
-            visibleItemCount,
-            totalItemCount
-        )
-    }
-
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-        super.onScrollStateChanged(recyclerView, newState)
-        if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-            seriesListViewModel.onScrollStateTrue()
-        }
-    }
-}*/
 
     companion object {
         val TAG = CharactersFragment::class.java.simpleName

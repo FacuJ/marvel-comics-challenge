@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -25,8 +25,18 @@
         android:name="com.facundojaton.marvelcomicschallenge.ui.characters_list.CharacterDetailActivity"
         android:label="activity_character_detail"
         tools:layout="@layout/activity_character_detail" >
+
         <argument
             android:name="character"
             app:argType="com.facundojaton.marvelcomicschallenge.model.MarvelCharacter" />
     </activity>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.facundojaton.marvelcomicschallenge.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
