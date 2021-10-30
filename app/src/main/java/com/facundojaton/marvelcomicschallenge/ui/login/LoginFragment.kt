@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
+import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.FragmentLoginBinding
 import com.facundojaton.marvelcomicschallenge.utils.SessionController
+import com.facundojaton.marvelcomicschallenge.utils.toast
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
@@ -30,15 +34,12 @@ class LoginFragment : Fragment() {
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
         val response = result.idpResponse
         if (result.resultCode == AppCompatActivity.RESULT_OK) {
-            // Successfully signed in
             SessionController.initializeSignInData()
-            // ...
+            navigateToMainScreen()
         } else {
-            Log.e(TAG, "EPIC FAIL")
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+            SessionController.logout()
+            Log.e(TAG, response?.error?.message.toString())
+            toast(R.string.error_signin_in)
         }
     }
 
@@ -47,7 +48,16 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View{
         binding = FragmentLoginBinding.inflate(layoutInflater)
+        if (SessionController.userEmail != null) {
+            navigateToMainScreen()
+        }
         return binding.root
+    }
+
+    private fun navigateToMainScreen() {
+        this.findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
