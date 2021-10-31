@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="character"
-            type="com.facundojaton.marvelcomicschallenge.model.MarvelCharacter" />
+            name="viewModel"
+            type="com.facundojaton.marvelcomicschallenge.ui.character_detail.CharacterDetailsViewModel" />
     </data>
 
     <ScrollView
@@ -18,14 +18,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_character_detail"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{character.thumbnail.fullPath}"
+                app:imageUrl="@{viewModel.character.thumbnail.fullPath}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +39,7 @@
                 android:layout_marginStart="53dp"
                 android:layout_marginTop="21dp"
                 android:layout_marginEnd="53dp"
-                android:text="@{character.description}"
+                android:text="@{viewModel.character.description}"
                 android:textColor="@color/character_detail_blue"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -67,11 +68,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="14dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_comics_appearances"
                 />
+
+            <ProgressBar
+                android:id="@+id/pb_character_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:marvelApiStatus="@{viewModel.status}"
+                tools:visibility="visible" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
