@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarvelComicsChallenge">
         <activity
-            android:name=".ui.characters_list.CharacterDetailActivity"
+            android:name=".ui.character_detail.CharacterDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

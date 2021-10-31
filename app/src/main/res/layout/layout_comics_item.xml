@@ -26,18 +26,11 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@{comic.nameWithoutYear}"
+            android:text="@{comic.name}"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="12sp"
             tools:text="@tools:sample/lorem" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/divider"
-            android:background="@color/black"
-            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_comic_year"
