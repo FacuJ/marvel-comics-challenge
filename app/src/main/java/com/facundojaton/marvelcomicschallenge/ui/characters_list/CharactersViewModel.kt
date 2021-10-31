@@ -27,10 +27,6 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
     val status: LiveData<RequestStatus>
         get() = _status
 
-   /* private val _selectedcharacter = MutableLiveData<characterDetail>()
-    val selectedcharacter: LiveData<characterDetail>
-        get() = _selectedcharacter
-*/
     var isSearching: Boolean = false
     private val queryParams = HashMap<String, String>()
     private var isScrolling: Boolean = false
@@ -46,7 +42,7 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
                 _status.value = RequestStatus.LOADING
                 val characterList = ArrayList<MarvelCharacter>()
                 withContext(Dispatchers.IO) {
-                    val response: List<MarvelCharacter> = repository.getCharacters()
+                    val response: List<MarvelCharacter> = repository.getCharacters(page)
                     characterList.addAll(response)
                 }
 

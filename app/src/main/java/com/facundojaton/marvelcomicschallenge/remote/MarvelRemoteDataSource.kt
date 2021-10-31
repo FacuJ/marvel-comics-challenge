@@ -23,9 +23,9 @@ class MarvelRemoteDataSource @Inject constructor(
         return emptyList()
     }
 
-    override suspend fun getEvents(page: Int): List<MarvelEvent> {
+    override suspend fun getEvents(): List<MarvelEvent> {
         val params = HashMap<String, String>()
-        buildEventsParams(params, page)
+        buildEventsParams(params)
         val response = service.getEventsList(params)
         if(response.code == "200") {
             response.data?.results?.let {
@@ -35,7 +35,7 @@ class MarvelRemoteDataSource @Inject constructor(
         return emptyList()
     }
 
-    private fun buildEventsParams(params: java.util.HashMap<String, String>, page: Int) {
+    private fun buildEventsParams(params: java.util.HashMap<String, String>) {
         buildParams(params)
         params[APIConstants.QueryParams.LIMIT] = "25"
         params[APIConstants.QueryParams.ORDER_BY] = "startDate"

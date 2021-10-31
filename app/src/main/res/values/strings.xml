@@ -15,4 +15,5 @@
     <string name="logout_message">Do you want to log out?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="exit_without_logout">Exit without logout</string>
 </resources>
