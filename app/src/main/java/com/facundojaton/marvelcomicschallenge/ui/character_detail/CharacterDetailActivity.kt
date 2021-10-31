@@ -1,8 +1,7 @@
-package com.facundojaton.marvelcomicschallenge.ui.characters_list
+package com.facundojaton.marvelcomicschallenge.ui.character_detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.navArgs
 import com.facundojaton.marvelcomicschallenge.R
@@ -23,6 +22,10 @@ class CharacterDetailActivity : AppCompatActivity() {
         val character = args.character
         binding.character = character
         binding.executePendingBindings()
+
+        if(character.description.isNullOrBlank()) binding.tvCharacterDescription.text =
+            getString(R.string.no_character_description)
+
         character.comics?.items?.let { comics ->
             val linearLayout = binding.llComics
             comics.forEach {

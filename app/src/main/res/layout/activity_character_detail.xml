@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        tools:context=".ui.characters_list.CharacterDetailActivity">
+        tools:context=".ui.character_detail.CharacterDetailActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -39,8 +39,8 @@
                 android:layout_marginTop="21dp"
                 android:layout_marginEnd="53dp"
                 android:text="@{character.description}"
-                android:textColor="#de000000"
-                android:textSize="18sp"
+                android:textColor="@color/character_detail_blue"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_character_detail"
@@ -50,11 +50,13 @@
                 android:id="@+id/tv_comics_appearances"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
                 android:layout_marginTop="43dp"
+                android:layout_marginEnd="65dp"
                 android:text="@string/comics_appearances_title"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_character_description" />

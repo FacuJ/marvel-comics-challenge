@@ -22,7 +22,7 @@
     </fragment>
     <activity
         android:id="@+id/characterDetailActivity"
-        android:name="com.facundojaton.marvelcomicschallenge.ui.characters_list.CharacterDetailActivity"
+        android:name="com.facundojaton.marvelcomicschallenge.ui.character_detail.CharacterDetailActivity"
         android:label="activity_character_detail"
         tools:layout="@layout/activity_character_detail" >
 
