@@ -10,6 +10,7 @@
             type="com.facundojaton.marvelcomicschallenge.ui.character_detail.CharacterDetailsViewModel" />
     </data>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,6 +22,10 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp">
 
+            <include
+                android:id="@+id/toolbar_top"
+                layout="@layout/layout_custom_toolbar"/>
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_character_detail"
                 android:layout_width="match_parent"
@@ -29,7 +34,7 @@
                 app:imageUrl="@{viewModel.character.thumbnail.fullPath}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_top"
                 tools:src="@tools:sample/avatars" />
 
             <androidx.appcompat.widget.AppCompatTextView

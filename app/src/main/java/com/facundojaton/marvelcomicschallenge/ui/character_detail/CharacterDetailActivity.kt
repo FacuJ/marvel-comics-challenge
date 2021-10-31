@@ -9,6 +9,14 @@ import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.ActivityCharacterDetailBinding
 import com.facundojaton.marvelcomicschallenge.databinding.LayoutComicsItemBinding
 import dagger.hilt.android.AndroidEntryPoint
+import android.view.View
+
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+
 
 @AndroidEntryPoint
 class CharacterDetailActivity : AppCompatActivity() {
@@ -26,23 +34,17 @@ class CharacterDetailActivity : AppCompatActivity() {
         viewModel.character = character
         viewModel.getComicsList()
         binding.viewModel = this.viewModel
+        binding.toolbarTop.tvToolbarTitle.text = character.name
         binding.executePendingBindings()
+        binding.toolbarTop.ivClose.setOnClickListener { finish() }
+
+        supportActionBar?.hide()
+
+
 
         if(character.description.isNullOrBlank()) binding.tvCharacterDescription.text =
             getString(R.string.no_character_description)
 
-        /*character.comics?.items?.let { comics ->
-            val linearLayout = binding.llComics
-            comics.forEach {
-                val comicsBinding : LayoutComicsItemBinding = DataBindingUtil.inflate(
-                    layoutInflater,
-                    R.layout.layout_comics_item,
-                    linearLayout, false)
-                comicsBinding.comic = it
-                comicsBinding.executePendingBindings()
-                binding.llComics.addView(comicsBinding.root)
-            }
-        }*/
 
         viewModel.comicsList.observe(this,{ list->
             list?.let {
