@@ -34,23 +34,19 @@ class EventsFragment : Fragment() {
 
 
         binding.rvEvents.adapter = listAdapter
-        //rvCharacters.addOnScrollListener(customScrollListener)
         listAdapter.onMarvelEventClicked = {
-            // this@CharactersFragment.viewModel.selectCharacter(it)
+            listAdapter.waiting = true
+            viewModel.getEventComics(it.id.toString())
         }
-        /*btnRefresh.setOnClickListener {
-            thisViewModel.refresh()
-        }
-
-         */
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.eventsList.observe(viewLifecycleOwner, { list ->
-            list?.let {
-                it.size
+        viewModel.changedItemId.observe(viewLifecycleOwner, { id ->
+            id?.let { eventId->
+                listAdapter.waiting = false
+                listAdapter.updatedEvent(eventId)
             }
         })
 
@@ -72,12 +68,6 @@ class EventsFragment : Fragment() {
                 }
             }
         })
-/*
-        viewModel.selectedCharacter.observe(viewLifecycleOwner, { detail ->
-            detail?.let {
-                navigateToDetail(it)
-            }
-        })*/
     }
 
 

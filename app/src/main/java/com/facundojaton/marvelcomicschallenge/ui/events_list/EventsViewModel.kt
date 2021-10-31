@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.facundojaton.marvelcomicschallenge.model.MarvelComic
 import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.repositories.MarvelRepository
+import com.facundojaton.marvelcomicschallenge.ui.character_detail.CharacterDetailsViewModel
 import com.facundojaton.marvelcomicschallenge.utils.APIConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -27,17 +29,18 @@ class EventsViewModel @Inject constructor(private val repository: MarvelReposito
     val status: LiveData<RequestStatus>
         get() = _status
 
-   /* private val _selectedcharacter = MutableLiveData<characterDetail>()
-    val selectedcharacter: LiveData<characterDetail>
-        get() = _selectedcharacter
-*/
+    private val _changedItemId = MutableLiveData<String>()
+    val changedItemId: LiveData<String>
+        get() = _changedItemId
+
     var isSearching: Boolean = false
     private val queryParams = HashMap<String, String>()
     private var isScrolling: Boolean = false
     private var page: Int = 1
+    private var comicsPage: Int = 1
 
     init {
-        refresh()
+        getEventsList()
     }
 
     private fun getEventsList() = viewModelScope.launch {
@@ -49,7 +52,6 @@ class EventsViewModel @Inject constructor(private val repository: MarvelReposito
                     val response: List<MarvelEvent> = repository.getEvents()
                     eventList.addAll(response)
                 }
-
                 val newList = ArrayList<MarvelEvent>()
                 if (!_eventsList.value.isNullOrEmpty()) newList.addAll(_eventsList.value!!)
                 newList.addAll(eventList)
@@ -62,42 +64,52 @@ class EventsViewModel @Inject constructor(private val repository: MarvelReposito
         }
     }
 
-    private fun resetPages() {
-        _eventsList.value = ArrayList()
-        page = 1
-        queryParams[APIConstants.QueryParams.PAGE] = page.toString()
-    }
-
-    fun paginateIfNeeded(
-        firstVisibleItemPosition: Int,
-        visibleItemCount: Int,
-        totalItemCount: Int
-    ) {
-        val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
-        val isNotAtBeginning = firstVisibleItemPosition >= 0
-        val shouldPaginate = (status.value != RequestStatus.LOADING) && isAtLastItem &&
-                isNotAtBeginning && isScrolling && !isSearching
-        if (shouldPaginate) {
-            getMoreEvents()
-            isScrolling = false
+    fun getEventComics(eventId: String) = viewModelScope.launch {
+        try {
+            _status.value = RequestStatus.LOADING
+            val comics = ArrayList<MarvelComic>()
+            withContext(Dispatchers.IO) {
+                val response: List<MarvelComic> =
+                    repository.getSingleEventComics(eventId, comicsPage)
+                comics.addAll(response)
+            }
+            addComicsToEvents(comics)
+            if (comics.size > 98) getMoreComics(eventId)
+            else comicsPage = 1
+            _changedItemId.value = eventId
+            _status.value = RequestStatus.SUCCESS
+        } catch (e: Exception) {
+            _status.value = RequestStatus.ERROR
+            Log.e(CharacterDetailsViewModel::class.java.simpleName, e.message.toString())
         }
     }
 
-
-    private fun getMoreEvents() {
-        page++
-        queryParams[APIConstants.QueryParams.PAGE] = page.toString()
-        getEventsList()
+    private fun addComicsToEvents(comics: ArrayList<MarvelComic>) {
+        _eventsList.value?.let { events ->
+            events.map { event ->
+                comics.map { comic ->
+                    comic.events?.items?.map { comicEventSummary ->
+                        if (comicEventSummary.name == event.title) {
+                            if (event.marvelComics == null) event.marvelComics = ArrayList()
+                            if (event.marvelComics?.contains(comic) == false) event.marvelComics?.add(
+                                comic
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        notifyEventListChanged()
     }
 
-    fun onScrollStateTrue() {
-        isScrolling = true
+    private fun notifyEventListChanged() {
+        val list = eventsList.value
+        _eventsList.value = list!!
     }
 
-    fun refresh() {
-        queryParams.clear()
-        resetPages()
-        getEventsList()
+    private fun getMoreComics(eventId: String) {
+        comicsPage++
+        getEventComics(eventId)
     }
 
 }

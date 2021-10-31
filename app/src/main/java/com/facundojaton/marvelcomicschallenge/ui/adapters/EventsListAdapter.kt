@@ -3,7 +3,9 @@ package com.facundojaton.marvelcomicschallenge.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -19,6 +21,7 @@ class EventsListAdapter : ListAdapter<
 
     var onMarvelEventClicked: (marvelEvent: MarvelEvent) -> Unit = { }
     var waiting = false
+    var openedItem = -1
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -38,28 +41,59 @@ class EventsListAdapter : ListAdapter<
         val marvelEvent = getItem(position)
         holder.bind(marvelEvent)
 
-        holder.binding.ivEvent.setOnClickListener {
-            //if (!waiting) onMarvelEventClicked(marvelEvent)
-            toggleComicsVisibility(holder.binding.clComicsList)
+        if (openedItem == position){
+            holder.binding.clComicsList.visibility = View.VISIBLE
+            holder.binding.ivDropdownArrow.isSelected = true
+        }
+        holder.binding.ivEvent.apply {
+            holder.binding.ivDropdownArrow.setOnClickListener { this.performClick() }
+            holder.binding.tvEventDate.setOnClickListener { this.performClick() }
+            holder.binding.tvEventTitle.setOnClickListener { this.performClick() }
+
+            this.setOnClickListener {
+                if (!waiting) {
+                    if (!holder.binding.clComicsList.isVisible) {
+                        openedItem = position
+                        if (marvelEvent.marvelComics == null) onMarvelEventClicked(marvelEvent)
+                    } else {
+                        openedItem = -1
+                    }
+                    toggleComicsVisibility(
+                        holder.binding.clComicsList,
+                        holder.binding.ivDropdownArrow
+                    )
+                }
+            }
         }
 
-        marvelEvent.comics?.items?.let { comics ->
-            val linearLayout = holder.binding.llComics
-            linearLayout.removeAllViews()
-            comics.forEach {
-                val comicsBinding : LayoutComicsItemBinding = DataBindingUtil.inflate(
-                    LayoutInflater.from(holder.binding.root.context),
-                    R.layout.layout_comics_item,
-                    linearLayout, false)
-                comicsBinding.comic = it
-                linearLayout.addView(comicsBinding.root)
-            }
+        val linearLayout = holder.binding.llComics
+        linearLayout.removeAllViews()
+        marvelEvent.marvelComics?.forEach {
+            val comicsBinding: LayoutComicsItemBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(holder.binding.root.context),
+                R.layout.layout_comics_item,
+                linearLayout, false
+            )
+            comicsBinding.comic = it
+            linearLayout.addView(comicsBinding.root)
         }
     }
 
-    private fun toggleComicsVisibility(clComicsList: ConstraintLayout) {
-        clComicsList.visibility = if(clComicsList.visibility == View.VISIBLE) View.GONE
-        else View.VISIBLE
+    private fun toggleComicsVisibility(clComicsList: ConstraintLayout, imageView: ImageView) {
+        clComicsList.visibility = if (clComicsList.visibility == View.VISIBLE) {
+            imageView.isSelected = false
+            View.GONE
+        }
+        else {
+            imageView.isSelected = true
+            View.VISIBLE
+        }
+    }
+
+    fun updatedEvent(eventId: String) {
+        currentList.forEachIndexed { index, marvelEvent ->
+            if(marvelEvent.id.toString() == eventId) notifyItemChanged(index)
+        }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<MarvelEvent>() {
@@ -77,7 +111,9 @@ class EventsListAdapter : ListAdapter<
         fun bind(marvelEvent: MarvelEvent) {
             binding.event = marvelEvent
             binding.clComicsList.visibility = View.GONE
+            binding.ivDropdownArrow.isSelected = false
             binding.executePendingBindings()
         }
     }
+
 }

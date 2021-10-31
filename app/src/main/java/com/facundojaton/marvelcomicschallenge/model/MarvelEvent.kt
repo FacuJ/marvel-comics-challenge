@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-@Parcelize
 data class MarvelEvent(
     val id: Long,
     val title: String?,
@@ -22,11 +21,9 @@ data class MarvelEvent(
     val comics: ComicList?,
     val stories: StoryList?,
     val events: EventList?,
-    val series: SeriesList?
-    /*,
-    val characters: StoryList?,
-    val creators: StoryList?*/
-) : Parcelable, Serializable {
+    val series: SeriesList?,
+    var marvelComics : ArrayList<MarvelComic>? = ArrayList()
+) : Serializable {
     fun getStartDate() :String? {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         start?.let {

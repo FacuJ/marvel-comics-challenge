@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="comic"
+            type="com.facundojaton.marvelcomicschallenge.model.MarvelComic" />
+
+        <variable
+            name="oldComic"
             type="com.facundojaton.marvelcomicschallenge.model.ComicSummary" />
     </data>
 
@@ -15,35 +18,41 @@
         android:id="@+id/ll_episode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="8dp">
+        android:background="@drawable/bg_item_character"
+        android:paddingHorizontal="16dp"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_comic_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="30dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@{comic.name}"
-            android:textAlignment="center"
+            android:text="@{comic.title}"
+            android:textAlignment="textStart"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="16sp"
             tools:text="@tools:sample/lorem" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_comic_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@{comic.yearWithoutName}"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp"
+            android:text="@{comic.onSaleDateYear}"
+            android:textAlignment="textStart"
+            android:textColor="@color/gray_dark"
+            android:textSize="14sp"
             tools:text="@tools:sample/lorem" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/app_background_gray"
+            />
     </LinearLayout>
 </layout>

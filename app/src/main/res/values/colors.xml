@@ -9,6 +9,10 @@
     <color name="very_dark_grey">#262626</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_blue">#222053</color>
+    <color name="gray_medium">#ECEFF1</color>
+    <color name="gray_dark">#99000000</color>
 
+    <color name="app_background_gray">@color/gray_medium</color>
+    <color name="divider_gray">@color/gray_dark</color>
     <color name="character_detail_blue">@color/dark_blue</color>
 </resources>
