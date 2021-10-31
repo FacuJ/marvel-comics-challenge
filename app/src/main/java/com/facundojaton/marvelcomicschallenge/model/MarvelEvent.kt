@@ -23,9 +23,6 @@ data class MarvelEvent(
     val stories: StoryList?,
     val events: EventList?,
     val series: SeriesList?
-    /*,
-    val characters: StoryList?,
-    val creators: StoryList?*/
 ) : Parcelable, Serializable {
     fun getStartDate() :String? {
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

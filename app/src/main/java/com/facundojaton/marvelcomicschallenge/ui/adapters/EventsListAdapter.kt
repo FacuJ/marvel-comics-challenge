@@ -51,7 +51,7 @@ class EventsListAdapter : ListAdapter<
                     LayoutInflater.from(holder.binding.root.context),
                     R.layout.layout_comics_item,
                     linearLayout, false)
-                comicsBinding.comic = it
+                comicsBinding.oldComic = it
                 linearLayout.addView(comicsBinding.root)
             }
         }

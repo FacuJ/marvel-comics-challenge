@@ -1,6 +1,7 @@
 package com.facundojaton.marvelcomicschallenge.repositories
 
 import com.facundojaton.marvelcomicschallenge.model.MarvelCharacter
+import com.facundojaton.marvelcomicschallenge.model.MarvelComic
 import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
 import javax.inject.Inject
 
@@ -13,11 +14,19 @@ class MarvelRepository @Inject constructor(
 
     suspend fun getEvents() : List<MarvelEvent> = remote.getEvents()
 
+    suspend fun getCharacterComics(characterId: String) : List<MarvelComic> =
+        remote.getCharacterComics(characterId)
+
+    suspend fun getEventComics(eventId: String) : List<MarvelComic> =
+        remote.getEventComics(eventId)
+
 }
 
 interface RemoteDataSource {
     suspend fun getCharacters(page: Int): List<MarvelCharacter>
     suspend fun getEvents(): List<MarvelEvent>
+    suspend fun getCharacterComics(characterId : String) : List<MarvelComic>
+    suspend fun getEventComics(eventId : String) : List<MarvelComic>
 }
 
 interface LocalDataSource {

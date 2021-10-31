@@ -1,6 +1,7 @@
 package com.facundojaton.marvelcomicschallenge.remote
 
 import com.facundojaton.marvelcomicschallenge.model.MarvelCharacter
+import com.facundojaton.marvelcomicschallenge.model.MarvelComic
 import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
 import com.facundojaton.marvelcomicschallenge.repositories.RemoteDataSource
 import com.facundojaton.marvelcomicschallenge.utils.APIConstants
@@ -27,6 +28,32 @@ class MarvelRemoteDataSource @Inject constructor(
         val params = HashMap<String, String>()
         buildEventsParams(params)
         val response = service.getEventsList(params)
+        if(response.code == "200") {
+            response.data?.results?.let {
+                return it
+            }
+        }
+        return emptyList()
+    }
+
+    override suspend fun getCharacterComics(characterId: String): List<MarvelComic> {
+        val params = HashMap<String, String>()
+        buildParams(params)
+        val response = service.getCharacterComicsList(characterId,params)
+
+        if(response.code == "200") {
+            response.data?.results?.let {
+                return it
+            }
+        }
+        return emptyList()
+    }
+
+    override suspend fun getEventComics(eventId: String): List<MarvelComic> {
+        val params = HashMap<String, String>()
+        buildParams(params)
+        val response = service.getEventComicsList(eventId,params)
+
         if(response.code == "200") {
             response.data?.results?.let {
                 return it

@@ -6,6 +6,8 @@ object APIConstants {
     object Endpoints {
         const val CHARACTERS = "v1/public/characters"
         const val EVENTS = "v1/public/events"
+        const val CHARACTER_COMICS = "v1/public/characters/{${QueryParams.CHARACTER_ID}}/comics"
+        const val EVENT_COMICS = "v1/public/events/{${QueryParams.EVENT_ID}}/comics"
     }
 
     object QueryParams {
@@ -16,6 +18,8 @@ object APIConstants {
         const val TIMESTAMP = "ts"
         const val HASH = "hash"
         const val PAGE = "page"
+        const val EVENT_ID = "eventId"
+        const val CHARACTER_ID = "characterId"
     }
 
     object Keys {
