@@ -3,6 +3,7 @@ package com.facundojaton.marvelcomicschallenge.ui.adapters
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -55,4 +56,5 @@ fun bindImageWithUrl(imgView: ImageView, imgUrl: String?) {
                 .error(R.drawable.ic_broken_image)
         )
         .into(imgView)
+    imgView.clipToOutline = true
 }

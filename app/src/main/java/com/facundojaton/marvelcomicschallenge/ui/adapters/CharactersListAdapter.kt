@@ -54,6 +54,7 @@ class CharactersListAdapter : ListAdapter<
         RecyclerView.ViewHolder(binding.root) {
         fun bind(marvelCharacter: MarvelCharacter) {
             binding.character = marvelCharacter
+            binding.ivCharacter.clipToOutline = true
             binding.executePendingBindings()
         }
     }
