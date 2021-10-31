@@ -35,7 +35,7 @@ class CharactersListAdapter : ListAdapter<
         val character = getItem(position)
         holder.bind(character)
 
-        holder.binding.ivCharacter.setOnClickListener {
+        holder.binding.root.setOnClickListener {
             if (!waiting) onCharacterClicked(character)
         }
     }

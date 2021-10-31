@@ -1,20 +1,13 @@
 package com.facundojaton.marvelcomicschallenge.di
 
-import android.content.Context
-import androidx.room.Room
-import com.facundojaton.marvelcomicschallenge.db.MarvelDao
-import com.facundojaton.marvelcomicschallenge.db.MarvelDatabase
-import com.facundojaton.marvelcomicschallenge.db.RoomDataSource
 import com.facundojaton.marvelcomicschallenge.remote.MarvelRemoteDataSource
 import com.facundojaton.marvelcomicschallenge.remote.MarvelRemoteService
-import com.facundojaton.marvelcomicschallenge.repositories.LocalDataSource
 import com.facundojaton.marvelcomicschallenge.repositories.MarvelRepository
 import com.facundojaton.marvelcomicschallenge.repositories.RemoteDataSource
 import com.facundojaton.marvelcomicschallenge.utils.APIConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -53,22 +46,5 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideMarvelRepository(remote: MarvelRemoteDataSource, local: RoomDataSource) =
-        MarvelRepository(remote,local)
-
-    @Provides
-    fun provideMarvelDao(database: MarvelDatabase): MarvelDao = database.marvelDao()
-
-    @Provides
-    @Singleton
-    fun provideMarvelLocalDataSource(dao : MarvelDao) : LocalDataSource = RoomDataSource(dao)
-
-    @Provides
-    @Singleton
-    fun provideMarvelDatabase(@ApplicationContext appContext: Context): MarvelDatabase =
-        Room.databaseBuilder(
-            appContext,
-            MarvelDatabase::class.java,
-            "marvel-db"
-        ).build()
+    fun provideMarvelRepository(remote: MarvelRemoteDataSource) = MarvelRepository(remote)
 }

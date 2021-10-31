@@ -1,11 +1,7 @@
 package com.facundojaton.marvelcomicschallenge.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import okhttp3.internal.format
 import java.io.Serializable
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 data class MarvelEvent(
