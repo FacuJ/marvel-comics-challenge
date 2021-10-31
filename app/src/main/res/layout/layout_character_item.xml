@@ -8,22 +8,25 @@
 
         <variable
             name="character"
-            type="com.facundojaton.marvelcomicschallenge.model.Character" />
+            type="com.facundojaton.marvelcomicschallenge.model.MarvelCharacter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="120dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/bg_item_character"
+        android:elevation="6dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_character"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:padding="2dp"
-            android:paddingBottom="4dp"
-            android:scaleType="fitCenter"
+            android:background="@drawable/bg_image_character"
+            android:scaleType="centerCrop"
+            android:outlineProvider="background"
+            app:imageUrl="@{character.thumbnail.fullPath}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
@@ -33,12 +36,14 @@
             android:id="@+id/tv_characters_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@{character.name}"
+            android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_character"
             app:layout_constraintTop_toTopOf="parent"
@@ -48,11 +53,12 @@
             android:id="@+id/tv_character_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="@{character.description}"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_characters_title"
             app:layout_constraintTop_toBottomOf="@id/tv_characters_title"

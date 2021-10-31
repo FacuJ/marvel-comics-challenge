@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class Character(
+data class MarvelCharacter(
     val id: Long,
     val name: String?,
     val description: String?,
