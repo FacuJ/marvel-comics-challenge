@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.ActivityMainBinding
 import com.facundojaton.marvelcomicschallenge.utils.SessionController
+import com.facundojaton.marvelcomicschallenge.utils.showLogoutDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,24 +40,6 @@ class MainActivity : AppCompatActivity() {
             showLogoutDialog()
         }
         return true
-    }
-
-    private fun showLogoutDialog() {
-        val dialog = AlertDialog.Builder(this)
-        dialog.apply {
-            setTitle(R.string.logout_title)
-            setMessage(R.string.logout_message)
-            setPositiveButton(R.string.yes) { dialog, _ ->
-                SessionController.logout()
-                navigateToLogin()
-                dialog.dismiss()
-            }
-            setNegativeButton(R.string.no) { dialog, _ ->
-                dialog.dismiss()
-            }
-            setNeutralButton(R.string.exit_without_logout)
-        }
-        dialog.show()
     }
 
     private fun navigateToLogin() {
