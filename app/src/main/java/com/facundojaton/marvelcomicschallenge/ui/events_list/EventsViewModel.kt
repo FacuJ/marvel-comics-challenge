@@ -10,7 +10,6 @@ import com.facundojaton.marvelcomicschallenge.model.MarvelEvent
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.repositories.MarvelRepository
 import com.facundojaton.marvelcomicschallenge.ui.character_detail.CharacterDetailsViewModel
-import com.facundojaton.marvelcomicschallenge.utils.APIConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,6 +31,10 @@ class EventsViewModel @Inject constructor(private val repository: MarvelReposito
     private val _changedItemId = MutableLiveData<String>()
     val changedItemId: LiveData<String>
         get() = _changedItemId
+
+    private val _emptyComicsResponse = MutableLiveData<Boolean>()
+    val emptyComicsResponse: LiveData<Boolean>
+        get() = _emptyComicsResponse
 
     var isSearching: Boolean = false
     private val queryParams = HashMap<String, String>()
@@ -76,6 +79,7 @@ class EventsViewModel @Inject constructor(private val repository: MarvelReposito
             addComicsToEvents(comics)
             if (comics.size > 98) getMoreComics(eventId)
             else comicsPage = 1
+            if (comics.isEmpty()) _emptyComicsResponse.value = true
             _changedItemId.value = eventId
             _status.value = RequestStatus.SUCCESS
         } catch (e: Exception) {
@@ -110,6 +114,10 @@ class EventsViewModel @Inject constructor(private val repository: MarvelReposito
     private fun getMoreComics(eventId: String) {
         comicsPage++
         getEventComics(eventId)
+    }
+
+    fun clearEmptyComicsResponse(){
+        _emptyComicsResponse.value = null
     }
 
 }

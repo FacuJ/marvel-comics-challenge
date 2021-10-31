@@ -42,8 +42,4 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
-
-    private fun navigateToLogin() {
-        this.findNavController(R.id.nav_host_fragment).navigateUp()
-    }
 }

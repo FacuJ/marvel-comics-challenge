@@ -13,14 +13,4 @@ data class RoomCharacter(
     val description: String?,
     val modified : String?,
     val resourceUri: String?,
-    /*
-    @TypeConverters(UrlConverter::class)
-    val urls: List<Url>,
-
-    @Embedded val thumbnail: Image?,
-    @Embedded val comics : ComicList?,
-    @Embedded val stories: StoryList?,
-    @Embedded val events: EventList?,
-    @Embedded val series: SeriesList?
-)*/
 )

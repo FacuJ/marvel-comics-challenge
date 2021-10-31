@@ -12,6 +12,7 @@ import com.facundojaton.marvelcomicschallenge.R
 import com.facundojaton.marvelcomicschallenge.databinding.FragmentEventsBinding
 import com.facundojaton.marvelcomicschallenge.model.RequestStatus
 import com.facundojaton.marvelcomicschallenge.ui.adapters.EventsListAdapter
+import com.facundojaton.marvelcomicschallenge.utils.toast
 
 class EventsFragment : Fragment() {
 
@@ -66,6 +67,13 @@ class EventsFragment : Fragment() {
                 else -> {
                     listAdapter.waiting = false
                 }
+            }
+        })
+
+        viewModel.emptyComicsResponse.observe(viewLifecycleOwner, {
+            it?.let { isEmpty->
+                if (isEmpty) toast(R.string.no_comics_about_this_event)
+                viewModel.clearEmptyComicsResponse()
             }
         })
     }

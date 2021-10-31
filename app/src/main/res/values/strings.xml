@@ -20,4 +20,5 @@
     <string name="comics_to_discuss">Comics to discuss</string>
     <string name="character_detail">Character detail</string>
     <string name="marvel_challenge">Marvel Challenge</string>
+    <string name="no_comics_about_this_event">Sorry. We couldn\'t fetch more comics from this event</string>
 </resources>
