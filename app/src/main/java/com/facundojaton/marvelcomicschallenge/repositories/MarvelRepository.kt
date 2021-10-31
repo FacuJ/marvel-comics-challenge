@@ -9,7 +9,7 @@ class MarvelRepository @Inject constructor(
     private val local: LocalDataSource
 ) {
 
-    suspend fun getCharacters(): List<MarvelCharacter> = remote.getCharacters(1)
+    suspend fun getCharacters(): List<MarvelCharacter> = remote.getCharacters(2)
 
     suspend fun getEvents() : List<MarvelEvent> = remote.getEvents(1)
 

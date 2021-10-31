@@ -10,17 +10,11 @@ class MarvelRemoteDataSource @Inject constructor(
     private val service: MarvelRemoteService
 ) : RemoteDataSource {
 
-    private val params = HashMap<String, String>()
-
-    init {
-        params[APIConstants.QueryParams.APIKEY] = APIConstants.Keys.PUBLIC_KEY
-        params[APIConstants.QueryParams.HASH] = APIConstants.Keys.PRIVATE_KEY
-        params[APIConstants.QueryParams.TIMESTAMP] = APIConstants.Keys.TIMESTAMP
-    }
-
     override suspend fun getCharacters(page: Int): List<MarvelCharacter> {
+        val params = HashMap<String, String>()
+        buildCharacterParams(params, page)
         val response = service.getCharactersList(params)
-        //ToDo: foresee another codes
+
         if(response.code == "200") {
             response.data?.results?.let {
                 return it
@@ -30,13 +24,32 @@ class MarvelRemoteDataSource @Inject constructor(
     }
 
     override suspend fun getEvents(page: Int): List<MarvelEvent> {
+        val params = HashMap<String, String>()
+        buildEventsParams(params, page)
         val response = service.getEventsList(params)
-        //ToDo: foresee another codes
         if(response.code == "200") {
             response.data?.results?.let {
                 return it
             }
         }
         return emptyList()
+    }
+
+    private fun buildEventsParams(params: java.util.HashMap<String, String>, page: Int) {
+        buildParams(params)
+        params[APIConstants.QueryParams.LIMIT] = "25"
+        params[APIConstants.QueryParams.ORDER_BY] = "startDate"
+    }
+
+    private fun buildCharacterParams(params: java.util.HashMap<String, String>, page: Int) {
+        buildParams(params)
+        params[APIConstants.QueryParams.LIMIT] = "15"
+        if (page > 1) params[APIConstants.QueryParams.OFFSET] = "${(page - 1)*15}"
+    }
+
+    private fun buildParams(params: HashMap<String, String>) {
+        params[APIConstants.QueryParams.APIKEY] = APIConstants.Keys.APIKEY
+        params[APIConstants.QueryParams.HASH] = APIConstants.Keys.HASH
+        params[APIConstants.QueryParams.TIMESTAMP] = APIConstants.Keys.TIMESTAMP
     }
 }
