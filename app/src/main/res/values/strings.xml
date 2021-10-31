@@ -17,4 +17,5 @@
     <string name="no">No</string>
     <string name="exit_without_logout">Exit without logout</string>
     <string name="no_character_description">(No character description)</string>
+    <string name="comics_to_discuss">Comics to discuss</string>
 </resources>
