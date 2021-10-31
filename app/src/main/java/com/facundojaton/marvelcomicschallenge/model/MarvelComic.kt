@@ -20,7 +20,8 @@ data class ComicDataContainer(
 data class MarvelComic(
     val id: Long,
     val title: String?,
-    val dates: ArrayList<ComicDate>?
+    val dates: ArrayList<ComicDate>?,
+    val events: EventList?
 ) : Serializable {
     fun getOnSaleDateYear(): String?{
         dates?.map {

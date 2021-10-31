@@ -17,15 +17,20 @@ interface MarvelRemoteService {
     @GET(APIConstants.Endpoints.EVENTS)
     suspend fun getEventsList(@QueryMap params : HashMap<String, String>): EventsListResponse
 
-    @GET(APIConstants.Endpoints.EVENT_COMICS)
-    suspend fun getEventComicsList(
-        @Path(value = APIConstants.QueryParams.EVENT_ID) eventId: String,
+    @GET(APIConstants.Endpoints.COMICS)
+    suspend fun getComicsList(
         @QueryMap params : HashMap<String, String>
     ): ComicsListResponse
 
     @GET(APIConstants.Endpoints.CHARACTER_COMICS)
     suspend fun getCharacterComicsList(
         @Path(value = APIConstants.QueryParams.CHARACTER_ID) eventId: String,
+        @QueryMap params : HashMap<String, String>
+    ): ComicsListResponse
+
+    @GET(APIConstants.Endpoints.EVENT_COMICS)
+    suspend fun getSingleEventComicsList(
+        @Path(value = APIConstants.QueryParams.EVENT_ID) eventId: String,
         @QueryMap params : HashMap<String, String>
     ): ComicsListResponse
 

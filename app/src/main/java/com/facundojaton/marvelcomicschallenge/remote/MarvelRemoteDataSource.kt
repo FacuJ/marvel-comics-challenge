@@ -49,10 +49,10 @@ class MarvelRemoteDataSource @Inject constructor(
         return emptyList()
     }
 
-    override suspend fun getEventComics(eventId: String): List<MarvelComic> {
+    override suspend fun getEventComics(eventIds: String, comicsPage: Int): List<MarvelComic> {
         val params = HashMap<String, String>()
-        buildParams(params)
-        val response = service.getEventComicsList(eventId,params)
+        buildComicEventsParams(params, eventIds, comicsPage)
+        val response = service.getComicsList(params)
 
         if(response.code == "200") {
             response.data?.results?.let {
@@ -62,13 +62,42 @@ class MarvelRemoteDataSource @Inject constructor(
         return emptyList()
     }
 
-    private fun buildEventsParams(params: java.util.HashMap<String, String>) {
+    override suspend fun getSingleEventComics(eventId: String, comicsPage: Int): List<MarvelComic> {
+        val params = HashMap<String, String>()
+        buildSingleEventComicsParams(params, comicsPage)
+        val response = service.getSingleEventComicsList(eventId,params)
+
+        if(response.code == "200") {
+            response.data?.results?.let {
+                return it
+            }
+        }
+        return emptyList()
+    }
+
+    private fun buildSingleEventComicsParams(
+        params: java.util.HashMap<String, String>,
+        page: Int
+    ) {
+        buildParams(params)
+        if (page > 1) params[APIConstants.QueryParams.OFFSET] = "${(page - 1)*15}"
+        params[APIConstants.QueryParams.LIMIT] = "99"
+    }
+
+    private fun buildComicEventsParams(params: HashMap<String, String>, eventIds : String, page: Int) {
+        buildParams(params)
+        if (page > 1) params[APIConstants.QueryParams.OFFSET] = "${(page - 1)*15}"
+        params[APIConstants.QueryParams.EVENTS] = eventIds
+        params[APIConstants.QueryParams.LIMIT] = "99"
+    }
+
+    private fun buildEventsParams(params: HashMap<String, String>) {
         buildParams(params)
         params[APIConstants.QueryParams.LIMIT] = "25"
         params[APIConstants.QueryParams.ORDER_BY] = "startDate"
     }
 
-    private fun buildCharacterParams(params: java.util.HashMap<String, String>, page: Int) {
+    private fun buildCharacterParams(params: HashMap<String, String>, page: Int) {
         buildParams(params)
         params[APIConstants.QueryParams.LIMIT] = "15"
         if (page > 1) params[APIConstants.QueryParams.OFFSET] = "${(page - 1)*15}"

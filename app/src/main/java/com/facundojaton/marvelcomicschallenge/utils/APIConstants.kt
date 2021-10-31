@@ -8,9 +8,11 @@ object APIConstants {
         const val EVENTS = "v1/public/events"
         const val CHARACTER_COMICS = "v1/public/characters/{${QueryParams.CHARACTER_ID}}/comics"
         const val EVENT_COMICS = "v1/public/events/{${QueryParams.EVENT_ID}}/comics"
+        const val COMICS = "v1/public/comics"
     }
 
     object QueryParams {
+        const val EVENTS = "events"
         const val ORDER_BY = "orderBy"
         const val OFFSET = "offset"
         const val LIMIT = "limit"
