@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             setNegativeButton(R.string.no) { dialog, _ ->
                 dialog.dismiss()
             }
+            setNeutralButton(R.string.exit_without_logout)
         }
         dialog.show()
     }
